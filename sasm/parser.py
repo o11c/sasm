@@ -104,14 +104,19 @@ class Flavor:
                 continue
             if kind is Kind.ENTRY:
                 assert rarg
+                assert ' ' not in rarg
+                assert '.' not in rarg
                 assert rarg not in script.events
                 script.events[rarg] = len(script.code)
             if kind is Kind.LABEL:
                 assert rarg
+                assert ' ' not in rarg
+                assert '.' not in rarg
                 assert rarg not in labels
                 labels[rarg] = len(script.code)
             if kind is Kind.LOCATION:
                 assert rarg
+                assert ' ' not in rarg
                 lst = len(script.targets)
                 # label if local, or event if remote
                 if '.' in rarg:
@@ -145,6 +150,7 @@ class Flavor:
                 script.code.append((self._indices[cmd], sarg))
             if kind is Kind.VARIABLE:
                 assert rarg
+                assert ' ' not in rarg
                 lsv = len(script.variables)
                 varg = variables.setdefault(rarg, lsv)
                 if varg == lsv:
@@ -152,6 +158,7 @@ class Flavor:
                 script.code.append((self._indices[cmd], varg))
             if kind is Kind.BUILTIN:
                 assert rarg
+                assert ' ' not in rarg
                 bv = self._builtins[rarg]
                 lsb = len(script.builtins)
                 barg = builtins.setdefault(bv, lsb)
@@ -208,3 +215,6 @@ def parse_string(raw):
                 assert 'Unknown escape: ' + c
         out.append(c)
         continue
+
+def quote_string(cooked):
+    return '"%s"' % cooked.replace('\\', '\\\\').replace('"', '\\"')

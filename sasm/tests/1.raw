@@ -1,30 +1,28 @@
-# the init event is triggered on server start
 on init
-call sub
+call #16
 pushs "Okay!"
 builtin print
 end
 
-# the click even is triggered explicitly by players
 on click
 pushs "hello"
-pushl hello
+pushl #10
 pushs "world"
-pushl world
+pushl #13
 pushi 2
 builtin domenu
 
-label hello
+label #10
 pushs "you said hi"
 builtin print
 end
 
-label world
+label #13
 pushs "you said earth"
 builtin print
 end
 
-label sub
+label #16
 pushs "script is starting ..."
 builtin print
 ret

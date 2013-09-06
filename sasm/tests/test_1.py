@@ -51,7 +51,7 @@ class Test1(unittest.TestCase):
         user = sasm.user.TextUser(input, output)
         ctx = sasm.core.ScriptContext(self.script.get_event_target('init'))
         ctx.run(user)
-        assert output.getvalue() == 'script is starting ...\n'
+        assert output.getvalue() == 'script is starting ...\nOkay!\n'
 
     def test_1b0(self):
         input = StringIO('0\n')
@@ -68,3 +68,10 @@ class Test1(unittest.TestCase):
         ctx = sasm.core.ScriptContext(self.script.get_event_target('click'))
         ctx.run(user)
         assert output.getvalue() == '0. hello\n1. world\nyou said earth\n'
+
+    def test_dump(self):
+        fn = os.path.join(os.path.dirname(__file__), '1.raw')
+        dump = open(fn).read()
+        out = StringIO()
+        self.script.dump(out)
+        assert out.getvalue() == dump
