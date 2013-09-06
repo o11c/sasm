@@ -1,0 +1,28 @@
+# the init event is triggered on server start
+on init
+call sub
+end
+
+# the click even is triggered explicitly by players
+on click
+pushs "hello"
+pushl hello
+pushs "world"
+pushl world
+pushi 2
+builtin domenu
+
+label hello
+pushs "you said hi"
+builtin print
+end
+
+label world
+pushs "you said earth"
+builtin print
+end
+
+label sub
+pushs "script is starting ..."
+builtin print
+ret
